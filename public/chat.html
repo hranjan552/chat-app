@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
+    <title>E-Chat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <style>
+        .fixed-row-bottom {
+            position: fixed;
+            bottom: 0;
+            width: 54%;
+        }
+         #ScrollStyle {
+            max-height: 630px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3 class="center-align">E-Chat :)</h3>
+        <div class="row">
+            <div class="col s3">
+
+                <div class="card blue-grey darken-1"  style="min-height:630px;">
+                    <div class="card-content white-text">
+                        <span class="card-title center-align">Online Users...</span>
+                       
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col s9">
+                <div class="card hoverable" id="ScrollStyle">
+                    <div class="card-content">
+
+                        <div class="row">
+                            <ul class="collection" id="messages">
+                            </ul>
+                        </div>
+                        <div class="row blue lighten-5">
+                        <form class="col s12" id="message-form">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">message</i>
+                                    <input type="text" id="message" class="materialize-textarea" name="message" required autocomplete="off">
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button class="btn-floating btn-large pulse" type="submit">
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                    <div class="right">
+                                        <button type="button" class="btn waves-effect waves-light right-align cyan" id="send-location">
+                                            <i class="material-icons right">location_on</i>Share Location
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- <div class=" fixed-row-bottom blue lighten-5">
+
+             
+
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+    <script id="message-template" type="text/template">
+        <li class="collection-item">
+            <h6 class="green-text">{{from}}: <span class="indigo-text">{{createdAt}}</span></h6>
+            <p>{{text}}</p>
+        </li>
+      </script>
+    
+      <script id="location-message-template" type="text/template">
+        <li class="collection-item">
+            <h6  class="green-text">{{from}}: <span class="indigo-text">{{createdAt}}</span></h6>
+            <p>
+              <a href="{{url}}" target="_blank" class="waves-effect waves-light btn btn-small blue lighten-2"><i class="material-icons right">my_location</i>My current location</a>
+            </p>
+        </li>
+      </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="/js/moment.js"></script>
+    <script src="/js/mustache.js"></script>
+    <script src="/js/chat.js"></script>
+
+</body>
+
+</html>
