@@ -37,11 +37,14 @@ socket.on("isTyping", function (data) {
 });
 
 socket.on('connect', function () {
+    var matches1 = window.location.search.match(/name=([^&]*)/);
+    var matches2 = window.location.search.match(/group=([^&]*)/);
+    if (!matches1 || !matches2) {
+        window.location.href = '/';
+    }
     var params = jQuery.deparam(window.location.search);
-
     socket.emit('join', params, function (err) {
         if (err) {
-            // Materialize.toast(err, 4000);
             alert(err);
             window.location.href = '/';
         } else {
@@ -68,7 +71,7 @@ socket.on('newMessage', function (message) {
     var msgDivId = document.getElementById('ScrollStyle');
     shouldScroll = msgDivId.scrollTop + msgDivId.clientHeight === msgDivId.scrollHeight;
 
-    var formattedTime = moment(message.createdAt).format('h:mm a');
+    var formattedTime = moment(message.createdAt).format('h:mm:ss A');
     var template = $('#message-template').html();
     var html = Mustache.render(template, {
         text: message.text,
@@ -81,7 +84,9 @@ socket.on('newMessage', function (message) {
     }
 });
 
-
+socket.on('newAlertMessage', function (message) {
+Materialize.toast(message.text, 4000);
+});
 
 
 $('#message-form').submit(function (e) {
@@ -100,7 +105,7 @@ $('#message-form').submit(function (e) {
 });
 
 socket.on('newLocationMessage', function (message) {
-    var formattedTime = moment(message.createdAt).format('h:mm a');
+    var formattedTime = moment(message.createdAt).format('h:mm:ss A');
     var msgDivId = document.getElementById('ScrollStyle');
     shouldScroll = msgDivId.scrollTop + msgDivId.clientHeight === msgDivId.scrollHeight;
     var template = jQuery('#location-message-template').html();
