@@ -15,4 +15,10 @@ var generateLocationMessage = (from, latitude, longitude) => {
   };
 };
 
-module.exports = {generateMessage, generateLocationMessage};
+var typingMessage = (userName) => {
+  return {
+    userName
+  };
+};
+
+module.exports = { generateMessage, generateLocationMessage, typingMessage };
