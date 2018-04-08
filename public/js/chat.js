@@ -13,7 +13,7 @@ function timeoutFunction() {
     socket.emit("notTyping", true)
 }
 
-$("#message").keypress(function (e) {
+$("#message").keyup(function (e) {
     if (e.which !== 13) {
         typing = true;
         socket.emit("typing", true);

@@ -24,8 +24,8 @@ io.on('connection', (socket) => {
     users.removeUser(socket.id);
     users.addUser(socket.id, params.name, params.group);
     io.to(params.group).emit('updateUserList', users.getUserList(params.group));
-    socket.emit('newAlertMessage', generateMessage('Admin', 'Welcome to the chat app'));
-    socket.broadcast.to(params.group).emit('newAlertMessage', generateMessage('(Admin) ', `${params.name} has joined.`));
+    socket.emit('newAlertMessage', generateMessage('Admin', 'Welcome to the E-Chat :)'));
+    socket.broadcast.to(params.group).emit('newAlertMessage', generateMessage('(Admin) ', `${params.name} has joined the Group...`));
     callback();
   });
 
@@ -59,7 +59,7 @@ io.on('connection', (socket) => {
     var user = users.removeUser(socket.id);
     if (user) {
       io.to(user.group).emit('updateUserList', users.getUserList(user.group));
-      io.to(user.group).emit('newAlertMessage', generateMessage('Admin', `${user.name} has left.`));
+      io.to(user.group).emit('newAlertMessage', generateMessage('Admin', `${user.name} has left the Group...`));
     }
   });
 });
