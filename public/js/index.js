@@ -22,6 +22,7 @@ $('#message-form').submit(function (e) {
         from: 'User',
         text: $('[name=message]').val()
     }, function () {
+        $('[name=message]').val('')
     });
 });
 
@@ -40,13 +41,15 @@ locationButton.on('click', function () {
     if (!navigator.geolocation) {
         return Materialize.toast('Geolocation not supported by your browser...', 4000);
     }
-
+    $('#send-location').prop('disabled', true).html('<i class="material-icons right">location_on</i>Please Wait');
     navigator.geolocation.getCurrentPosition(function (position) {
+        $('#send-location').prop('disabled', false).html('<i class="material-icons right">location_on</i>Share Location');
         socket.emit('createLocationMessage', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         });
     }, function () {
+        $('#send-location').prop('disabled', false).html('<i class="material-icons right">location_on</i>Share Location');
         Materialize.toast('Unable to fetch your location...', 4000);
     });
 });
